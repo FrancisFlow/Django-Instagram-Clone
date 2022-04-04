@@ -15,3 +15,25 @@ class Image(models.Model):
     @classmethod
     def get_images(cls):
         return cls.objects.all()
+
+class Profile(models.Model):
+    user=models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    profile_pic=CloudinaryField('image')
+    bio=models.CharField(blank=True, max_length=200, null=True)
+    name=models.CharField(blank=True, max_length=40)
+    def __str__(self):
+        return f'{self.user.username} profile'
+    
+    def search_profile(cls, name):
+        return cls.objects.filter(user_username__icontains=name).all()
+    def save_profile(self):
+        self.save()
+    def delete_profile(self):
+        self.delete()
+    def update_bio(self, new_bio):
+        self.bio=new_bio
+        self.save()
+    def update_image(self, user_id, new_image):
+        user=User.objects.get(id=user_id)
+        self.photo=new_image
+        self.save()
