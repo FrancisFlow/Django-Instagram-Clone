@@ -26,6 +26,6 @@ urlpatterns = [
     path('', include('insta.urls')),
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/register/', RegistrationView.as_view(success_url='/accounts/login/'),  name='django_registration_register'),
-    path('accounts/login/', auth_views.LoginView.as_view(success_url='/')),
-
+    path('accounts/login/', auth_views.LoginView.as_view()),
+    path('tinymce/', include('tinymce.urls')),
 ]
