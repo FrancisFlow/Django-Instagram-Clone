@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content%} 
+<div class="container">
+    <div class="row">
+       <div class="panel panel-default">
+           <div class="panel-heading">
+               <h4 class="text-center">
+                   Create your very own profile
+               </h4>
+           </div>
+           <div class="panel-body">
+               <form action=" {%url 'new-profile' %}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {% bootstrap_form form %} 
+                    <div class="form-group" style="width:100%;">
+                    <input type="submit" class="btn btn-primary" value="Create" style="align-items:center;">    
+                    </div>
+                    <input type="hidden" name="next" value="{{next}}">
+               </form>
+           </div>
+       </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+ {%endblock%}
