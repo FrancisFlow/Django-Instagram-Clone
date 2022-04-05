@@ -40,7 +40,7 @@ def new_profile(request):
         if form.is_valid():
             post=form.save(commit=False)
             post.user=current_user
-            post.save()
+            # post.save()
             return redirect('profile')
     else:
         form=NewProfileForm()
