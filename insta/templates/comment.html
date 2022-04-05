@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
-{{block.super()}}
-
 <div class="container">
     <div class="row">
       <div class="col-md-6 panel-form">
@@ -26,7 +24,7 @@
                      {% csrf_token %}
                      {% bootstrap_form form %}
                      <div class="form-group" style="width:100%;">
-                        <input type="submit" class="btn btn-primary" value="Post" style="align-items:center"> 
+                        <input type="submit" class="btn btn-primary" value="Post" style="align-items:center;"> 
                         </div>
                         <input type="hidden" name="next" value="{{next}}">
                   </form>

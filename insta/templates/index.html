@@ -9,6 +9,8 @@
             <div  style="padding: 10px" >
               
                 <img src="{{image.image.url}}" alt="{{image.image_caption}}" class="img-responsive" style=" max-width:80%; max-height: 80%;">
+                <a href="{% url 'comment' image.id %}">Add a Comment</a>
+
             </div>
         </div>
         {% endfor %}
