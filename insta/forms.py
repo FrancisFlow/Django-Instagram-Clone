@@ -12,4 +12,22 @@ class CommentForm(forms.ModleForm):
 
     class Meta:
         modle=Comment
-        fileds=('content',)
+        fields=('content',)
+
+class NewProfileForm(forms.ModleForm):
+    class Meta:
+        model=Profile
+        exclude=['user']
+
+class UpdateUserForm(forms.ModleForm):
+    email=forms.EmailField(max_length=300, help_text="Requried, email address")
+    class Meta:
+        model=User
+        fields=('username', 'email')
+
+
+class UpdateUserProfileForm(forms.ModleForm):
+    class Meta:
+        model=Profile
+        fields= ['name', 'profile_photo', 'bio']
+        
