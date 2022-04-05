@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from . models import Image
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import CommentForm
+from .forms import CommentForm, UpdateUserForm, UpdateUserProfileForm, NewProfileForm
 
 # Create your views here.
-# /@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login')
 def home(request):
     images= Image.get_images().order_by('-date_posted')
-    return render(request, 'index.html', {'images': images})
+    current_user= request.user
+    return render(request, 'index.html', {'images': images, 'current_user': current_user})
 
 def welcome(request):
     return HttpResponse("Welcome to instagram")
@@ -32,6 +33,20 @@ def post_comment(request, id):
     }
     return render(request, 'comment.html', params)
 
+def new_profile(request):
+    current_user=request.user
+    if request.method=='POST':
+        form=NewProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.user=current_user
+            post.save()
+            return redirect('profile')
+    else:
+        form=NewProfileForm()
+    return render(request, 'new_profile.html', {'form': form})
+
+
 
 def profile(request, profile_id):
     images=request.user.profile.posts.all()
@@ -51,3 +66,5 @@ def profile(request, profile_id):
         'prof_form': prof_form,
     }
     return render(request, 'profile.html', params)
+
+
