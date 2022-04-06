@@ -28,4 +28,6 @@ urlpatterns = [
     path('accounts/register/', RegistrationView.as_view(success_url='/accounts/login/'),  name='django_registration_register'),
     path('accounts/login/', auth_views.LoginView.as_view()),
     path('tinymce/', include('tinymce.urls')),
+    path('logout/', views.LogoutView.as_view(), {'next_page': 'settings.LOGOUT_REDIRECT_URL'}),
+    path('accounts', include('django.contrib.auth.urls')),
 ]
